@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">employee.form</field>
+        <field name="model">employer.employee</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(employee.action_menu_wizard)d" type="action" string="wizards" class="oe_highlight"/>
+                    <button name="action_confirm" type="object" states="draft" string="Confirm" class="oe_highlight"/>
+                    <button name="action_done" type="object" states="confirm" string="Done" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" states="done" string="Cancelled" class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="ref" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="active" invisible="1"/>
+                        <field name="name"/>
+                        <field name="age"/>
+                        <field name="fresher"/>
+                        <field name="gender"/>
+                        <field name="year_of_experience"/>
+                        <field name="hr_name" widget="many2one_tags"/>
+                        <field name="cap_name"/>
+
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_employee_tree" model="ir.ui.view">
+        <field name="name">employee.tree</field>
+        <field name="model">employer.employee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="fresher"/>
+                <field name="year_of_experience"/>
+                <field name="cap_name"/>
+                <field name="hr_name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_employee_search" model="ir.ui.view">
+        <field name="name">employee.search</field>
+        <field name="model">employer.employee</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="fresher"/>
+                <field name="year_of_experience"/>
+                <filter name="filter_male" string="Male" domain="[('gender', '=', 'male')]"/>
+                <filter name="filter_female" string="Female" domain="[('gender', '=', 'female')]"/>
+                <filter name="filter_others" string="Others" domain="[('gender', '=', 'others')]"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+
+        </field>
+    </record>
+    <record id="action_employer_employee" model="ir.actions.act_window">
+        <field name="name">Employee</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employer.employee</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_employee"
+              parent="menu_employee_details"
+              name="employee"
+              action="action_employer_employee"
+              sequence="5"/>
+</odoo>

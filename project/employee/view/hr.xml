@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_form" model="ir.ui.view">
+        <field name="name">hr.form</field>
+        <field name="model">employer.hr</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" type="object" states="draft" string="Confirm" class="oe_highlight"/>
+                    <button name="action_done" type="object" states="confirm" string="Done" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" states="done" string="Cancelled" class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="age"/>
+                        <field name="gender"/>
+
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+
+
+    </record>
+    <record id="view_hr_tree" model="ir.ui.view">
+        <field name="name">hr.form</field>
+        <field name="model">employer.hr</field>
+        <field name="arch" type="xml">
+            <tree>
+
+
+                <field name="name"/>
+                <field name="age"/>
+                <field name="gender"/>
+            </tree>
+        </field>
+
+    </record>
+
+    <record id="action_employer_hr" model="ir.actions.act_window">
+        <field name="name">hr</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employer.hr</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_hr"
+              parent="menu_employee_details"
+              name="hr"
+              action="action_employer_hr"
+              sequence="5"/>
+</odoo>
